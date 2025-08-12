@@ -1,0 +1,43 @@
+'use client';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
+import { useBreadcrumbs } from '@/hooks/use-breadcrumbs';
+import { IconSlash } from '@tabler/icons-react';
+import { Fragment } from 'react';
+import { useI18n } from './layout/LanguageToggle/language-provider';
+
+export function Breadcrumbs() {
+  const items = useBreadcrumbs();
+  const { dir } = useI18n();
+  if (items.length === 0) return null;
+
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        {items.map((item, index) => (
+          <Fragment key={item.title}>
+            {index !== items.length - 1 && (
+              <BreadcrumbItem className='hidden md:block'>
+                <BreadcrumbLink href={item.link}>{item.title}</BreadcrumbLink>
+              </BreadcrumbItem>
+            )}
+            {index < items.length - 1 && (
+              <BreadcrumbSeparator className='hidden md:block'>
+                <IconSlash className={dir === 'rtl' ? 'rotate-180' : ''} />
+              </BreadcrumbSeparator>
+            )}
+            {index === items.length - 1 && (
+              <BreadcrumbPage>{item.title}</BreadcrumbPage>
+            )}
+          </Fragment>
+        ))}
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+}
