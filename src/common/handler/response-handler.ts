@@ -1,11 +1,6 @@
 import { AxiosError } from "axios";
-import { StatusCodes } from "http-status-codes";
-import { showToast } from "../components/UI/toast/Toast-Singleton";
-import { errorMessageMaper } from "../../services/normalization/http-error-messages";
-import { queryClient } from "../../app/routes/main";
-/**
- * @author Ibrahim a Alagbare
- */
+
+
 export interface ApiErrorBody {
   error: {
     code: string;
