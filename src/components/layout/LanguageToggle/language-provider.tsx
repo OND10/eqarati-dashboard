@@ -134,7 +134,14 @@ const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
 };
 
 function getInitialLanguage(): SupportedLanguage {
-  if (typeof window === 'undefined') return 'en';
+  if (typeof window === 'undefined') {
+    // Try to read from cookies for SSR
+    if (typeof document !== 'undefined') {
+      const match = document.cookie.match(/(?:^|; )language=(en|ar)/);
+      if (match) return match[1] as SupportedLanguage;
+    }
+    return 'en';
+  }
   try {
     const stored = window.localStorage.getItem('language') as SupportedLanguage | null;
     if (stored === 'en' || stored === 'ar') return stored;
