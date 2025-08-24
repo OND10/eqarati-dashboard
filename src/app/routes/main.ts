@@ -11,6 +11,8 @@ import { HomeRoute } from './_authenticated/Home.route';
 // } from "@tanstack/react-query";
 import { QueryClient } from '@tanstack/react-query';
 import { store } from '@/services/Redux/store';
+import { DashboardRoute } from './_authenticated/dashboard.route';
+import OverViewLayout from '../dashboard/overview/layout';
 // } from "../../common/components/layout/Layouts";
 // import Error404Page from "../../features/errors/404/404";
 // import Error505Page from "../../features/errors/500/500";
@@ -98,7 +100,8 @@ export const NoAuthRoute = createRoute({
 const routerTree = AppRootRoute.addChildren([
   AuthRoute.addChildren([
     // forbiddenRoute,
-    HomeRoute
+    HomeRoute,
+    DashboardRoute
     // FaharsRoute,
     // RecitersRoute,
     // QuranReadingRoute,

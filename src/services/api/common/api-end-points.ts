@@ -9,7 +9,7 @@ const api = 'API/';
 class apiEndpoints {
   // Common services Endpoints
   static login = common_services + 'login/';
-  static categories = api + 'categories/';
+  static categories = 'category/';
 
   // Quran App Endpoints
   static surahs = quran + 'surahs/';

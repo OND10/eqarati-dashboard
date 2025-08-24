@@ -13,8 +13,11 @@ import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+interface IData {
+  id: number;
+}
 interface CellActionProps {
-  data: Product;
+  data: IData;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {

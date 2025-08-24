@@ -27,6 +27,7 @@ export const ListCategoriesContainer: FC<ListCategoriesContainerProps> = ({
   if (categories.isError) return <Alert>خطاء في عرض التصنيفات</Alert>;
 
   if (categories.isSuccess && categories.data?.entities) {
+    console.log(categories.data.entities);
     return (
       <CategoryTable
         data={categories.data.entities}
