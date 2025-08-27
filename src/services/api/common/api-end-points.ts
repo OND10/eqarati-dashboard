@@ -1,25 +1,14 @@
 // Common Services Endpoints
 
-const common_services = 'common_services/';
-const quran = 'quran/';
-const review_app = 'review_app/';
-const quran_wiki = 'quran_wiki/';
-const api = 'API/';
+const authentication = 'authentication/';
 
 class apiEndpoints {
-  // Common services Endpoints
-  static login = common_services + 'login/';
+  // Authentication Endpoints
+  static login = authentication + 'login/';
   static categories = 'category/';
-
-  // Quran App Endpoints
-  static surahs = quran + 'surahs/';
-
-  // Review App Endpoints
-
-  static forms = review_app + 'forms/';
-
-  // Quran Wiki App Endpoints
-  static albums = quran_wiki + 'albums/';
+  static register = authentication + 'register/';
+  static changePassword = authentication + 'changePassword/';
+  static resetPassword = authentication + 'resetPassword/';
 }
 
 export default apiEndpoints;
