@@ -12,18 +12,22 @@ import {
   IconRadioactiveOff
 } from '@tabler/icons-react';
 
+const prePath = 'https://instadar14-001-site1.stempurl.com';
 export const categorycolumns: ColumnDef<Category>[] = [
   {
     accessorKey: 'logo',
     header: 'IMAGE',
     cell: ({ row }) => {
+      const logoPath = row.getValue('logo') as string;
+      const imageUrl = `${prePath}${logoPath}`;
+
       return (
-        <div className='relative aspect-square'>
+        <div className='relative aspect-square h-16 w-16'>
           <Image
-            src={row.getValue('logo')}
-            alt={row.getValue('name')}
+            src={imageUrl}
+            alt={row.getValue('name') as string}
             fill
-            className='rounded-lg'
+            className='rounded-lg object-cover'
           />
         </div>
       );
@@ -31,34 +35,24 @@ export const categorycolumns: ColumnDef<Category>[] = [
   },
   {
     id: 'name',
-    accessorKey: 'name',
+    accessorFn: (row) => `${row.name} ${row.nameEn}`, // combine Arabic + English
     header: ({ column }: { column: Column<Category, unknown> }) => (
       <DataTableColumnHeader column={column} title='Name' />
     ),
-    cell: ({ cell }) => <div>{cell.getValue<Category['name']>()}</div>,
+    cell: ({ row }) => (
+      <div>
+        {row.original.name} / {row.original.nameEn}
+      </div>
+    ),
     meta: {
-      label: 'Name',
-      placeholder: 'Search categories...',
+      label: 'name',
+      placeholder: 'بحث عن الفئة...', // search placeholder
       variant: 'text',
       icon: Text
     },
     enableColumnFilter: true
   },
-  {
-    id: 'nameEn',
-    accessorKey: 'nameEn',
-    header: ({ column }: { column: Column<Category, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Name' />
-    ),
-    cell: ({ cell }) => <div>{cell.getValue<Category['nameEn']>()}</div>,
-    meta: {
-      label: 'NameEn',
-      placeholder: 'Search categories...',
-      variant: 'text',
-      icon: Text
-    },
-    enableColumnFilter: true
-  },
+
   {
     accessorKey: 'code',
     header: 'CODE'
