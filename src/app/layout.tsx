@@ -9,6 +9,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import './theme.css';
+import ReactQueryProvider from '@/components/reactQueryProvider';
 
 const META_THEME_COLORS = {
   light: '#ffffff',
@@ -32,7 +33,9 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const activeThemeValue = cookieStore.get('active_theme')?.value;
   const isScaled = activeThemeValue?.endsWith('-scaled');
-  const languageCookie = (cookieStore.get('language')?.value || 'en') as 'en' | 'ar';
+  const languageCookie = (cookieStore.get('language')?.value || 'en') as
+    | 'en'
+    | 'ar';
   const initialDir = languageCookie === 'ar' ? 'rtl' : 'ltr';
 
   return (
@@ -58,21 +61,23 @@ export default async function RootLayout({
           fontVariables
         )}
       >
-        <NextTopLoader showSpinner={false} />
-        <NuqsAdapter>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-            enableColorScheme
-          >
-            <Providers activeThemeValue={activeThemeValue as string}>
-              <Toaster />
-              {children}
-            </Providers>
-          </ThemeProvider>
-        </NuqsAdapter>
+        <ReactQueryProvider>
+          <NextTopLoader showSpinner={false} />
+          <NuqsAdapter>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+              enableColorScheme
+            >
+              <Providers activeThemeValue={activeThemeValue as string}>
+                <Toaster />
+                {children}
+              </Providers>
+            </ThemeProvider>
+          </NuqsAdapter>
+        </ReactQueryProvider>
       </body>
     </html>
   );

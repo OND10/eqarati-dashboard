@@ -8,20 +8,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { Product } from '@/constants/data';
 import Category from '@/features/types/category';
 import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-interface IData {
-  id: number;
-}
-interface CellActionProps {
-  data: IData;
+interface CategoryCellActionProps {
+  data: Category;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CategoryCellAction: React.FC<CategoryCellActionProps> = ({
+  data
+}) => {
   const [loading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -47,7 +45,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/product/${data.id}`)}
+            onClick={() => router.push(`/dashboard/category/${data.id}`)}
           >
             <IconEdit className='mr-2 h-4 w-4' /> Update
           </DropdownMenuItem>
