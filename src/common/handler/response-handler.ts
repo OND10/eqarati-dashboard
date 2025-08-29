@@ -40,35 +40,35 @@ export const handleResponse = async (err: AxiosError) => {
 
   switch (status) {
     case StatusCodes.UNPROCESSABLE_ENTITY:
-      showToast('خطأ', translatedMessage, 'error', 3000);
+      // showToast('خطأ', translatedMessage, 'error', 3000);
       break;
 
     case StatusCodes.UNAUTHORIZED:
-      showToast('رفض الوصول', translatedMessage, 'error', 3000);
+      // showToast('رفض الوصول', translatedMessage, 'error', 3000);
       break;
 
     case StatusCodes.BAD_REQUEST:
-      showToast('طلب غير صالح', translatedMessage, 'error', 3000);
+      // showToast('طلب غير صالح', translatedMessage, 'error', 3000);
       break;
 
     case StatusCodes.FORBIDDEN:
-      showToast('ممنوع', translatedMessage, 'error', 3000);
+      // showToast('ممنوع', translatedMessage, 'error', 3000);
       break;
 
     case StatusCodes.NOT_FOUND:
-      showToast('غير موجود', translatedMessage, 'error', 3000);
+      // showToast('غير موجود', translatedMessage, 'error', 3000);
       break;
 
     case StatusCodes.CONFLICT:
-      showToast('تعارض', 'حدث تعارض مع الطلب', 'error', 3000);
+      // showToast('تعارض', 'حدث تعارض مع الطلب', 'error', 3000);
       break;
 
     case StatusCodes.INTERNAL_SERVER_ERROR:
-      showToast('خطأ في الخادم', translatedMessage, 'error', 3000);
+      // showToast('خطأ في الخادم', translatedMessage, 'error', 3000);
       break;
 
     default:
-      showToast('خطأ', translatedMessage, 'error', 3000);
+      // showToast('خطأ', translatedMessage, 'error', 3000);
       break;
   }
 

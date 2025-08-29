@@ -7,31 +7,32 @@ import { CheckCircle2, Text, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import { CellAction } from './cell-action';
 import { CATEGORY_OPTIONS } from './options';
+import Category from '@/features/types/category';
 
-export const columns: ColumnDef<Product>[] = [
-  {
-    accessorKey: 'photo_url',
-    header: 'IMAGE',
-    cell: ({ row }) => {
-      return (
-        <div className='relative aspect-square'>
-          <Image
-            src={row.getValue('photo_url')}
-            alt={row.getValue('name')}
-            fill
-            className='rounded-lg'
-          />
-        </div>
-      );
-    }
-  },
+export const columns: ColumnDef<Category>[] = [
+  // {
+  //   accessorKey: 'photo_url',
+  //   header: 'IMAGE',
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className='relative aspect-square'>
+  //         <Image
+  //           src={row.getValue('photo_url')}
+  //           alt={row.getValue('name')}
+  //           fill
+  //           className='rounded-lg'
+  //         />
+  //       </div>
+  //     );
+  //   }
+  // },
   {
     id: 'name',
     accessorKey: 'name',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
+    header: ({ column }: { column: Column<Category, unknown> }) => (
       <DataTableColumnHeader column={column} title='Name' />
     ),
-    cell: ({ cell }) => <div>{cell.getValue<Product['name']>()}</div>,
+    cell: ({ cell }) => <div>{cell.getValue<Category['name']>()}</div>,
     meta: {
       label: 'Name',
       placeholder: 'Search products...',
@@ -40,38 +41,38 @@ export const columns: ColumnDef<Product>[] = [
     },
     enableColumnFilter: true
   },
-  {
-    id: 'category',
-    accessorKey: 'category',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Category' />
-    ),
-    cell: ({ cell }) => {
-      const status = cell.getValue<Product['category']>();
-      const Icon = status === 'active' ? CheckCircle2 : XCircle;
+  // {
+  //   id: 'category',
+  //   accessorKey: 'category',
+  //   header: ({ column }: { column: Column<Category, unknown> }) => (
+  //     <DataTableColumnHeader column={column} title='Category' />
+  //   ),
+  //   cell: ({ cell }) => {
+  //     const status = cell.getValue<Category['code']>();
+  //     // const Icon = status === 'active' ? CheckCircle2 : XCircle;
 
-      return (
-        <Badge variant='outline' className='capitalize'>
-          <Icon />
-          {status}
-        </Badge>
-      );
-    },
-    enableColumnFilter: true,
-    meta: {
-      label: 'categories',
-      variant: 'multiSelect',
-      options: CATEGORY_OPTIONS
-    }
-  },
-  {
-    accessorKey: 'price',
-    header: 'PRICE'
-  },
-  {
-    accessorKey: 'description',
-    header: 'DESCRIPTION'
-  },
+  //     return (
+  //       <Badge variant='outline' className='capitalize'>
+  //         {/* <Icon /> */}
+  //         {status}
+  //       </Badge>
+  //     );
+  //   },
+  //   enableColumnFilter: true,
+  //   meta: {
+  //     label: 'categories',
+  //     variant: 'multiSelect',
+  //     options: CATEGORY_OPTIONS
+  //   }
+  // },
+  // {
+  //   accessorKey: 'price',
+  //   header: 'PRICE'
+  // },
+  // {
+  //   accessorKey: 'description',
+  //   header: 'DESCRIPTION'
+  // },
 
   {
     id: 'actions',

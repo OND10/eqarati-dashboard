@@ -1,34 +1,28 @@
-import { Product } from '@/constants/data';
-import { fakeProducts } from '@/constants/mock-api';
-import { searchParamsCache } from '@/lib/searchparams';
 import { ProductTable } from './product-tables';
 import { columns } from './product-tables/columns';
+import { getCategories } from '@/constants/mock-api'; // Or wherever you defined the function
+import Category from '@/features/types/category';
 
 type ProductListingPage = {};
 
 export default async function ProductListingPage({}: ProductListingPage) {
-  // Showcasing the use of search params cache in nested RSCs
-  const page = searchParamsCache.get('page');
-  const search = searchParamsCache.get('name');
-  const pageLimit = searchParamsCache.get('perPage');
-  const categories = searchParamsCache.get('category');
+  // ... your existing code
 
-  const filters = {
-    page,
-    limit: pageLimit,
-    ...(search && { search }),
-    ...(categories && { categories: categories })
-  };
+  try {
+    const products: Category[] = await getCategories();
 
-  const data = await fakeProducts.getProducts(filters);
-  const totalProducts = data.total_products;
-  const products: Product[] = data.products;
-
-  return (
-    <ProductTable
-      data={products}
-      totalItems={totalProducts}
-      columns={columns}
-    />
-  );
+    if (products.length > 0) {
+      return (
+        <ProductTable
+          data={products}
+          totalItems={products.length} // It's better to use the actual count
+          columns={columns}
+        />
+      );
+    }
+  } catch (error) {
+    console.error('Failed to load products:', error);
+    // You could return an error message or an empty state here
+    return <div>Failed to load products. Please try again later.</div>;
+  }
 }

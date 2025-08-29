@@ -1,13 +1,13 @@
 import {
   ApiErrorBody,
-  handleResponse,
-} from "../../../common/handler/response-handler";
-import { LoginModel } from "../../../features/common_services/types/auth";
+  handleResponse
+} from '../../../common/handler/response-handler';
+// import { LoginModel } from "../../../features/common_services/types/auth";
 // import { updateGlobalLoader } from "../../Redux/slices/global-loader";
 // import { store } from "../../Redux/store";
-import apiClient from "./api-client";
-import APP_URL from "./api-url";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import apiClient from './api-client';
+import APP_URL from './api-url';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 export const GetWithAuth = async <T>(endpoint: string): Promise<T> => {
   try {
@@ -23,8 +23,8 @@ export const GetWithAuth = async <T>(endpoint: string): Promise<T> => {
 export const GetAllWithAuth = async <T>(
   endpoint: string,
   offset?: number,
-  limit?: number | "",
-  params?: string | ""
+  limit?: number | '',
+  params?: string | ''
 ): Promise<T> => {
   try {
     let url: string;
@@ -37,7 +37,14 @@ export const GetAllWithAuth = async <T>(
         ? `${endpoint}?offset=${offset ?? 0}&limit=${limit}`
         : endpoint;
     }
-    const response = await apiClient.get<T>(checkTrailing(url, true));
+    const response = await axios.get<T>(
+      checkTrailing(
+        'https://instadar14-001-site1.stempurl.com/API/Category',
+        true
+      )
+    );
+    console.log(endpoint);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     const err = error as AxiosError;
@@ -69,19 +76,19 @@ export const Logout = async (endpoint: string, data: string): Promise<void> => {
   }
 };
 
-export const Login = async <T>(
-  endpoint: string,
-  data: LoginModel
-): Promise<T> => {
-  try {
-    const response = await axios.post(APP_URL + checkTrailing(endpoint), data);
-    return response.data;
-  } catch (error) {
-    const err = error as AxiosError;
-    await handleResponse(err);
-    throw err;
-  }
-};
+// export const Login = async <T>(
+//   endpoint: string,
+//   data: LoginModel
+// ): Promise<T> => {
+//   try {
+//     const response = await axios.post(APP_URL + checkTrailing(endpoint), data);
+//     return response.data;
+//   } catch (error) {
+//     const err = error as AxiosError;
+//     await handleResponse(err);
+//     throw err;
+//   }
+// };
 
 export const Register = async <T>(
   endpoint: string,
@@ -100,13 +107,13 @@ export const Register = async <T>(
 export const Post = async <T, dataT>(
   endpoint: string,
   data: Partial<dataT>,
-  headers?: string | ""
+  headers?: string | ''
 ): Promise<T> => {
   try {
     const response = await apiClient.post(checkTrailing(endpoint), data, {
       headers: {
-        "Content-Type": headers ?? "application/json",
-      },
+        'Content-Type': headers ?? 'application/json'
+      }
     });
     return response.data;
   } catch (error) {
@@ -118,9 +125,9 @@ export const Post = async <T, dataT>(
 
 export const Put = async <T, dataT>(
   endpoint: string,
-  id: string | number | "",
+  id: string | number | '',
   data: Partial<dataT>,
-  headers?: string | ""
+  headers?: string | ''
 ): Promise<T> => {
   try {
     if (id) {
@@ -129,8 +136,8 @@ export const Put = async <T, dataT>(
         data,
         {
           headers: {
-            "Content-Type": headers ?? "application/json",
-          },
+            'Content-Type': headers ?? 'application/json'
+          }
         }
       );
       return response.data;
@@ -146,7 +153,7 @@ export const Put = async <T, dataT>(
 
 export const PutWithFormData = async <T>(
   endpoint: string,
-  id: string | number | "",
+  id: string | number | '',
   data: FormData
   // trailing: string | ""
 ): Promise<T> => {
@@ -157,8 +164,8 @@ export const PutWithFormData = async <T>(
         data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         }
       );
       return response.data;
@@ -198,16 +205,16 @@ export const Delete = async (endpoint: string): Promise<boolean> => {
 };
 
 function checkTrailing(endpoint: string, checkNumber?: boolean): string {
-  const lastIndex = endpoint.at(-1) ?? "";
+  const lastIndex = endpoint.at(-1) ?? '';
   if (
     checkNumber &&
-    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].includes(lastIndex)
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(lastIndex)
   ) {
     return endpoint;
   }
 
-  if (lastIndex != "/") {
-    return endpoint + "/";
+  if (lastIndex != '/') {
+    return endpoint + '/';
   }
   return endpoint;
 }
